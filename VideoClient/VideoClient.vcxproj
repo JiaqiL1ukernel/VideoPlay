@@ -205,6 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\VideoClient.rc2" />
+    <None Include="VideoClient.mdj" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\VideoClient.ico" />
