@@ -1068,9 +1068,9 @@
 														"$ref": "AAAAAAGKrMg2vQN44TM="
 													},
 													"font": "Arial;13;0",
-													"left": 790,
+													"left": 789,
 													"top": 225,
-													"width": 50.5908203125,
+													"width": 52.4189453125,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 25,
@@ -1182,9 +1182,9 @@
 														"$ref": "AAAAAAGKrMh1WwObMCs="
 													},
 													"font": "Arial;13;0",
-													"left": 958,
+													"left": 957,
 													"top": 303,
-													"width": 50.5908203125,
+													"width": 52.4189453125,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 25,
@@ -1722,9 +1722,9 @@
 														"$ref": "AAAAAAGKs95w40KJn/g="
 													},
 													"font": "Arial;13;0",
-													"left": 1293,
+													"left": 1291,
 													"top": 763,
-													"width": 214.78564453125,
+													"width": 218.9052734375,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 10,
@@ -1834,9 +1834,9 @@
 														"$ref": "AAAAAAGKs97GQUKhsVw="
 													},
 													"font": "Arial;13;0",
-													"left": 936,
+													"left": 928,
 													"top": 820,
-													"width": 182.5712890625,
+													"width": 198.78955078125,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 10,
@@ -1946,9 +1946,9 @@
 														"$ref": "AAAAAAGKs99tK0K50vA="
 													},
 													"font": "Arial;13;0",
-													"left": 782,
+													"left": 768,
 													"top": 826,
-													"width": 152.470703125,
+													"width": 181.30810546875,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 10,
@@ -1956,7 +1956,7 @@
 														"$ref": "AAAAAAGKs99tK0K6Vtk="
 													},
 													"edgePosition": 1,
-													"text": "12 : SetPosition(pos: float)"
+													"text": "12 : SetPosition(pos: float):int"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -2058,9 +2058,9 @@
 														"$ref": "AAAAAAGKs9+5nELQBmA="
 													},
 													"font": "Arial;13;0",
-													"left": 801,
+													"left": 797,
 													"top": 886,
-													"width": 115.60986328125,
+													"width": 123.2841796875,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 10,
@@ -2282,9 +2282,9 @@
 														"$ref": "AAAAAAGKtDSO4EN+npU="
 													},
 													"font": "Arial;13;0",
-													"left": 770,
+													"left": 764,
 													"top": 1102,
-													"width": 176.2744140625,
+													"width": 189.49658203125,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 10,
@@ -3076,7 +3076,7 @@
 														"$ref": "AAAAAAGKrMCvsAIDSFw="
 													},
 													"edgePosition": 1,
-													"text": "22 : SetVolume(vol: int)"
+													"text": "22 : SetVolume(vol: int):int"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -3178,9 +3178,9 @@
 														"$ref": "AAAAAAGKrLjVVQE48ro="
 													},
 													"font": "Arial;13;0",
-													"left": 783,
+													"left": 777,
 													"top": 1601,
-													"width": 151.74072265625,
+													"width": 162.87451171875,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 10,
@@ -3188,7 +3188,7 @@
 														"$ref": "AAAAAAGKrLjVVQE58XQ="
 													},
 													"edgePosition": 1,
-													"text": "23 : SetVolume(vol: int)"
+													"text": "23 : SetVolume(vol: int):int"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -3300,7 +3300,7 @@
 														"$ref": "AAAAAAGKrMGDOgIou4g="
 													},
 													"edgePosition": 1,
-													"text": "24 : SetPosition(pos : float)"
+													"text": "24 : SetPosition(pos : float):int"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -3402,9 +3402,9 @@
 														"$ref": "AAAAAAGKrL/rmwHg9PM="
 													},
 													"font": "Arial;13;0",
-													"left": 774,
+													"left": 768,
 													"top": 1688,
-													"width": 169.8125,
+													"width": 181.30810546875,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 10,
@@ -3412,7 +3412,7 @@
 														"$ref": "AAAAAAGKrL/rmwHhVpI="
 													},
 													"edgePosition": 1,
-													"text": "25 : SetPosition(pos: float)"
+													"text": "25 : SetPosition(pos: float):int"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -3514,9 +3514,9 @@
 														"$ref": "AAAAAAGKrMIQAwJQLh4="
 													},
 													"font": "Arial;13;0",
-													"left": 964,
+													"left": 945,
 													"top": 1807,
-													"width": 120.28173828125,
+													"width": 158.9580078125,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 10,
@@ -3524,7 +3524,7 @@
 														"$ref": "AAAAAAGKrMIQAwJRUzQ="
 													},
 													"edgePosition": 1,
-													"text": "26 : GetMediaInfo()"
+													"text": "26 : GetMediaInfo():VlcSize"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -3626,9 +3626,9 @@
 														"$ref": "AAAAAAGKrLeyyQD2bG4="
 													},
 													"font": "Arial;13;0",
-													"left": 780,
+													"left": 779,
 													"top": 1832,
-													"width": 156.837890625,
+													"width": 158.9580078125,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 10,
@@ -3636,7 +3636,7 @@
 														"$ref": "AAAAAAGKrLeyyQD3JRo="
 													},
 													"edgePosition": 1,
-													"text": "27 : GetMediaInfo():CSize"
+													"text": "27 : GetMediaInfo():VlcSize"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -3984,9 +3984,9 @@
 														"$ref": "AAAAAAGKs+MzkEL7Sdk="
 													},
 													"font": "Arial;13;0",
-													"left": 561,
+													"left": 559,
 													"top": 2145,
-													"width": 57.0908203125,
+													"width": 60.9248046875,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 25,
@@ -4097,9 +4097,9 @@
 														"$ref": "AAAAAAGKs+OUykMU/us="
 													},
 													"font": "Arial;13;0",
-													"left": 830,
+													"left": 828,
 													"top": 2171,
-													"width": 57.0908203125,
+													"width": 60.9248046875,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 25,
@@ -4210,9 +4210,9 @@
 														"$ref": "AAAAAAGKs+OjbkMpIDY="
 													},
 													"font": "Arial;13;0",
-													"left": 997,
+													"left": 995,
 													"top": 2233,
-													"width": 57.0908203125,
+													"width": 60.9248046875,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 25,
@@ -4301,9 +4301,9 @@
 														"$ref": "AAAAAAGKs+RSA0NI7Dc="
 													},
 													"font": "Arial;13;0",
-													"left": 1352,
+													"left": 1350,
 													"top": 2299,
-													"width": 96.08447265625,
+													"width": 101.4228515625,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 10,
@@ -4413,9 +4413,9 @@
 														"$ref": "AAAAAAGKs+Te5UNlFVU="
 													},
 													"font": "Arial;13;0",
-													"left": 1300,
+													"left": 1298,
 													"top": 2347,
-													"width": 214.779296875,
+													"width": 218.9306640625,
 													"height": 13,
 													"alpha": 1.5707963267948966,
 													"distance": 10,
@@ -5395,6 +5395,15 @@
 									},
 									"name": "vol",
 									"type": "int"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGKtzXDF4COrm0=",
+									"_parent": {
+										"$ref": "AAAAAAGKrMDXwAIYX/E="
+									},
+									"type": "int",
+									"direction": "return"
 								}
 							]
 						},
@@ -5414,6 +5423,15 @@
 									},
 									"name": "pos ",
 									"type": "float"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGKtzWcQ4CLe1w=",
+									"_parent": {
+										"$ref": "AAAAAAGKrMGdJwI9TNQ="
+									},
+									"type": "int",
+									"direction": "return"
 								}
 							]
 						},
@@ -5423,7 +5441,18 @@
 							"_parent": {
 								"$ref": "AAAAAAGKqTiyftcjih4="
 							},
-							"name": "GetMediaInfo"
+							"name": "GetMediaInfo",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGKtztkfoCRaf8=",
+									"_parent": {
+										"$ref": "AAAAAAGKrMI4+wJmJsQ="
+									},
+									"type": "VlcSize",
+									"direction": "return"
+								}
+							]
 						},
 						{
 							"_type": "UMLOperation",
@@ -5802,7 +5831,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGKqZgSSsUmOH0="
 									},
-									"type": "CSize",
+									"type": "VlcSize",
 									"direction": "return"
 								}
 							]
@@ -6251,7 +6280,7 @@
 											"top": 517,
 											"width": 219.97802734375,
 											"height": 13,
-											"text": "+GetMediaInfo(): CSize",
+											"text": "+GetMediaInfo(): VlcSize",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6567,7 +6596,7 @@
 											"top": 458,
 											"width": 191,
 											"height": 13,
-											"text": "+SetVolume(vol: int)",
+											"text": "+SetVolume(vol: int): int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6584,7 +6613,7 @@
 											"top": 473,
 											"width": 191,
 											"height": 13,
-											"text": "+SetPosition(pos : float)",
+											"text": "+SetPosition(pos : float): int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6601,7 +6630,7 @@
 											"top": 488,
 											"width": 191,
 											"height": 13,
-											"text": "+GetMediaInfo()",
+											"text": "+GetMediaInfo(): VlcSize",
 											"horizontalAlignment": 0
 										},
 										{

@@ -44,10 +44,15 @@ public:
 	int SetPosition(float pos);
 	int GetVolume();
 	int SetVolume(int volume);
+	float GetLength();
 	VlcSize GetMediaInfo();
+	std::string Unidcode2Utf8(const std::wstring strIn);
+
 protected:
 	libvlc_instance_t* m_instance;
 	libvlc_media_t* m_media;
 	libvlc_media_player_t* m_player;
+	std::string m_url;
+	HWND m_hwnd;
 };
 

@@ -7,7 +7,7 @@
 #include "VideoClient.h"
 #include "VideoClientDlg.h"
 #include "afxdialogex.h"
-
+#include "VideoClientController.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -58,11 +58,12 @@ BOOL CVideoClientDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
-	// TODO: 在此添加额外的初始化代码
 	SetTimer(0,500,NULL);
-	m_pos.SetRange(0, 100);
+	m_pos.SetRange(0, 1);
 	m_volume.SetRange(0, 100);
 
+	m_controller->SetHwnd(m_video.GetSafeHwnd());
+	
 	SetDlgItemText(IDC_STATIC_VOLUME, _T("100%"));
 	SetDlgItemText(IDC_STATIC_TIME, _T("--:--:--/--:--:--"));
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
@@ -110,7 +111,18 @@ void CVideoClientDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	if (nIDEvent == 0) {
 		//控制层获取播放状态，位置信息
+		if (len == 0.0f || len == -1.0f) {
+			len = m_controller->VideoControl(CVLC_GET_LENGTH);
+			m_pos.SetRange(0, (int)len);
+		}
 		
+		
+		float pos = m_controller->VideoControl(CVLC_GET_POSITION);
+		CString posStr;
+		posStr.Format(_T("%.2f/%.2f"), pos*len,len);
+		if (pos != -1.0) {
+			SetDlgItemText(IDC_STATIC_TIME, posStr);
+		}
 	}
 	CDialogEx::OnTimer(nIDEvent);
 }
@@ -130,12 +142,18 @@ void CVideoClientDlg::OnBnClickedBtnPlay()
 	// TODO: 在此添加控件通知处理程序代码
 	
 	if (status == false) {
+		CString strUrl;
+		m_url.GetWindowText(strUrl);
+		m_controller->SetMedia(m_controller->Unicode2Utf8((LPCTSTR)strUrl));
 		m_BtnPlay.SetWindowTextW(_T("暂停"));
 		status = true;
+		float a = m_controller->VideoControl(CVLC_PLAY);
+		
 	}
 	else {
 		m_BtnPlay.SetWindowTextW(_T("播放"));
-		status = true;
+		status = false;
+		m_controller->VideoControl(CVLC_PAUSE);
 	}
 }
 
@@ -145,7 +163,7 @@ void CVideoClientDlg::OnBnClickedBtnStop()
 	// TODO: 在此添加控件通知处理程序代码
 	status = false;
 	m_BtnPlay.SetWindowTextW(_T("播放"));
-	
+	m_controller->VideoControl(CVLC_STOP);
 }
 
 
@@ -175,9 +193,10 @@ void CVideoClientDlg::OnHScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 {
 	//获取视频时间同步到IDC_STATIC_TIME
 	if (nSBCode == 5) {
-		CString timeStr;
-		timeStr.Format(_T("%d%%"), nPos);
-		SetDlgItemText(IDC_STATIC_TIME, timeStr);
+		CString posStr;
+		posStr.Format(_T("%d%%"), nPos);
+		SetDlgItemText(IDC_STATIC_TIME, posStr);
+		m_controller->SetPosition((float)nPos / len);
 	}
 	CDialogEx::OnHScroll(nSBCode, nPos, pScrollBar);
 }
@@ -190,6 +209,7 @@ void CVideoClientDlg::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar)
 		CString volumeStr;
 		volumeStr.Format(_T("%d%%"), 100 - nPos);
 		SetDlgItemText(IDC_STATIC_VOLUME,volumeStr);
+		m_controller->SetVolume(100 - nPos);
 	}
 		CDialogEx::OnVScroll(nSBCode, nPos, pScrollBar);
 }
