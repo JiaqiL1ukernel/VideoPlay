@@ -4,6 +4,22 @@
 #include <vector>
 #include <mutex>
 #include <Windows.h>
+#include <varargs.h>
+
+void CTRACE(const char* format, ...) {
+	va_list ap;
+	va_start(ap,format);
+	std::string buffer;
+	buffer.resize(1024 * 10);
+	vsprintf((char*)buffer.c_str(), format, ap);
+	OutputDebugStringA(buffer.c_str());
+	va_end(ap);
+}
+
+#ifndef TRACE
+#define TRACE CTRACE
+#endif // !TRACE
+
 
 class ThreadFuncBase {};
 typedef int (ThreadFuncBase::* FUNCTYPE)();
@@ -105,9 +121,7 @@ private:
 			if (worker.IsValid()) {
 				int ret = worker();
 				if (ret != 0) {
-					CString str;
-					str.Format(_T("thread found warning code %d\r\n"), ret);
-					OutputDebugString(str);
+					TRACE("thread found warning code : %d\r\n", ret);
 				}
 				if (ret < 0) {
 					m_worker.store(NULL);

@@ -131,6 +131,7 @@
     <ClCompile Include="VideoRTSPServer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CEdoyunQueue.h" />
     <ClInclude Include="EdoyunThread.h" />
     <ClInclude Include="RTSPServer.h" />
     <ClInclude Include="Socket.h" />
