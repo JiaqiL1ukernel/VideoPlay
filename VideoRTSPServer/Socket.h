@@ -1,48 +1,96 @@
 #pragma once
+#include "base.h"
 #include <WinSock2.h>
-#include <share.h>
 #include <memory>
+#pragma comment(lib , "rpcrt4.lib")
 
+#pragma comment(lib , "ws2_32.lib")
 
-
-class CBuffer :public std::string
+class CAddress
 {
 public:
-	CBuffer(const char* str)
+	CAddress()
 	{
-		resize(strlen(str));
-		memcpy((char*)c_str(), str, size());
+		m_port = -1;
+		memset(&m_addr, 0, sizeof(sockaddr_in));
+		m_addr.sin_family = AF_INET;
+	}
+	CAddress(const std::string& IP, short port)
+	{
+		m_ip = IP;
+		m_port = port;
+		m_addr.sin_family = AF_INET;
+		m_addr.sin_port = htons(port);
+		m_addr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
 	}
 
-	CBuffer(size_t size = 0) :std::string()
+	~CAddress() {}
+	CAddress(const CAddress& addr)
 	{
-		if (size > 0) {
-			resize(size);
-			memset((void*)c_str(), 0, size);
+		m_port = addr.m_port;
+		m_ip = addr.m_ip;
+		memcpy(&m_addr, &addr.m_addr, sizeof(sockaddr_in));
+	}
+	CAddress& operator=(const CAddress& addr)
+	{
+		if (this != &addr) {
+			m_port = addr.m_port;
+			m_ip = addr.m_ip;
+			memcpy(&m_addr, &addr.m_addr, sizeof(sockaddr_in));
 		}
+		return *this;
+	}
+	void Update(const std::string& IP, unsigned short port)
+	{
+		m_ip = IP;
+		m_port = port;
+		m_addr.sin_family = AF_INET;
+		m_addr.sin_port = htons(port);
+		m_addr.sin_addr.S_un.S_addr = htonl(INADDR_ANY);
 	}
 
-	CBuffer(void* buffer, size_t size)
+	void Update(unsigned short port)
 	{
-		resize(size);
-		memcpy((void*)c_str(), buffer, size);
+		m_addr.sin_port = htons(port);
+		m_port = port;
 	}
 
-	~CBuffer()
+	operator sockaddr* ()const
 	{
-		std::string::~basic_string();
+		return (sockaddr*)&m_addr;
 	}
 
-	operator char* () { return (char*)c_str(); }
-	operator const char* () { return c_str(); }
-	operator byte* () { return (byte*)c_str(); }
-	operator void* () { return (void*)c_str(); }
-	void Update(void* buffer, size_t size)
+	operator sockaddr* ()
 	{
-		resize(size);
-		memcpy((void*)c_str(), buffer, size);
+		return (sockaddr*)&m_addr;
 	}
+
+	operator sockaddr_in* ()const
+	{
+		return (sockaddr_in*)&m_addr;
+	}
+
+	operator sockaddr_in* ()
+	{
+		return (sockaddr_in*)&m_addr;
+	}
+
+	int size()const { return sizeof(sockaddr_in); }
+
+	void Fresh() {
+		m_ip = inet_ntoa(m_addr.sin_addr);
+	}
+
+	std::string Ip()const { return m_ip; }
+	unsigned short Port()const { return m_port; }
+private:
+	std::string m_ip;
+	unsigned short m_port;
+	sockaddr_in m_addr;
 };
+
+
+
 
 class Socket
 {
@@ -58,6 +106,10 @@ public:
 			m_socket = socket(PF_INET, SOCK_DGRAM, 0);
 		}
 	}
+
+	
+
+	Socket(SOCKET s) :m_socket(s) {}
 
 	void Close()
 	{
@@ -80,7 +132,7 @@ class CSocket
 public:
 	CSocket(bool bIsTcp = true) :m_sock(new Socket(bIsTcp)),m_bIsTcp(bIsTcp) {}
 	~CSocket() { m_sock.reset(); }
-	operator SOCKET() { return *m_sock; }
+	operator SOCKET()const { return *m_sock; }
 	CSocket(const CSocket& sock) :m_sock(sock.m_sock),m_bIsTcp(sock.m_bIsTcp){}
 	CSocket& operator=(const CSocket& sock) {
 		if (&sock != this) {
@@ -100,7 +152,9 @@ public:
 		return !operator==(sock);
 	}
 
-	CSocket(SOCKET sock, bool isTcp) :m_sock(new Socket(sock)), m_bIsTcp(isTcp) {}
+	CSocket(SOCKET sock, bool isTcp) :m_sock(new Socket(sock)), m_bIsTcp(isTcp) {
+		
+	}
 
 	int Bind(const CAddress& addr)
 	{
@@ -118,7 +172,12 @@ public:
 	CSocket Accept(CAddress& addr)
 	{
 		int size = addr.size();
-		SOCKET s = accept(*m_sock, (sockaddr*)addr, &size);
+		if (m_sock == nullptr)
+			return CSocket(INVALID_SOCKET,true);
+		SOCKET server = *m_sock;
+		if (server == INVALID_SOCKET)
+			return CSocket(INVALID_SOCKET, true);
+		SOCKET s = accept(server, (sockaddr*)addr, &size);
 		return CSocket(s, m_bIsTcp);
 	}
 
@@ -134,14 +193,26 @@ public:
 
 	int Send(const CBuffer& buf)
 	{
-		
-		return send(*m_sock, buf.c_str(), buf.size(), 0);
+		printf("%s\r\n", (char*)buf);
+		int index = 0;
+		char* pData = buf;
+		int ret = 0;
+		while (index < buf.size()) {
+			ret = (int)send(*m_sock, pData + index, buf.size() - index, 0);
+			if (ret < 0)
+				return ret;
+			if(ret == 0)
+				break;
+			index += ret;
+		}
+		return index;
 		
 	}
 
 	int Close()
 	{
 		m_sock.reset();
+		return 0;
 	}
 private:
 	std::shared_ptr<Socket> m_sock;
@@ -154,7 +225,7 @@ class SocketIniter
 public:
 	SocketIniter() {
 		WSADATA wsa;
-		WSAStartup(MAKEWORD(2, 2), &wsa);
+		int ret = WSAStartup(MAKEWORD(2, 2), &wsa);
 	}
 
 	~SocketIniter() {

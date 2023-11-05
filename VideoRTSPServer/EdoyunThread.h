@@ -6,18 +6,22 @@
 #include <Windows.h>
 #include <varargs.h>
 
-void CTRACE(const char* format, ...) {
-	va_list ap;
-	va_start(ap,format);
-	std::string buffer;
-	buffer.resize(1024 * 10);
-	vsprintf((char*)buffer.c_str(), format, ap);
-	OutputDebugStringA(buffer.c_str());
-	va_end(ap);
-}
+class ETool {
+public:
+	static void CTRACE(const char* format, ...) {
+		va_list ap;
+		va_start(ap, format);
+		std::string buffer;
+		buffer.resize(1024 * 10);
+		vsprintf((char*)buffer.c_str(), format, ap);
+		OutputDebugStringA(buffer.c_str());
+		va_end(ap);
+	}
+
+};
 
 #ifndef TRACE
-#define TRACE CTRACE
+#define TRACE ETool::CTRACE
 #endif // !TRACE
 
 
@@ -193,7 +197,7 @@ public:
 		for (size_t i = 0; i < m_threads.size(); i++) {
 			if (m_threads[i] != NULL && m_threads[i]->IsIdle()) {
 				m_threads[i]->UpdateWorker(worker);
-				index = i;
+				index = (int)i;
 				break;
 			}
 		}
